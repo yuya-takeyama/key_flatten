@@ -1,8 +1,6 @@
-# KeyFlatten
+# key_flatten
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/key_flatten`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Flatten keys of `Hash`.
 
 ## Installation
 
@@ -22,7 +20,37 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Module function
+
+```rb
+require 'key_flatten'
+
+KeyFlatten.key_flatten({"foo" => {"bar" => "baz"}})
+# => {"foo.bar" => "baz"}
+```
+
+### Monkey patching
+
+```rb
+require 'key_flatten/core_ext'
+
+{"foo" => {"bar" => "baz"}}.key_flatten
+# => {"foo.bar" => "baz"}
+```
+
+### Specify delimiter
+
+```rb
+{"foo" => {"bar" => "baz"}}.key_flatten(delimiter: "_")
+# => {"foo_bar" => "baz"}
+```
+
+### Symbolize keys
+
+```rb
+{"foo" => {"bar" => "baz"}}.key_flatten(symbolize: "_")
+# => {:"foo.bar" => "baz"}
+```
 
 ## Development
 
