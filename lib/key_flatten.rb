@@ -16,7 +16,28 @@ module KeyFlatten
     result
   end
 
+  def self.key_unflatten(hash, symbolize_keys: false, delimiter: '.', result: {})
+    hash.each do |k, v|
+      keys = k.to_s.split(delimiter)
+      last_key = symbolize_keys ? keys.pop.to_sym : keys.pop
+
+      h = keys.reduce(result) do |h, k|
+        k = k.to_sym if symbolize_keys
+        h[k] = {} unless h.key? k
+        h[k]
+      end
+
+      h[last_key] = v
+    end
+
+    result
+  end
+
   def key_flatten(symbolize_keys: false, delimiter: '.', prefix: nil)
     ::KeyFlatten.key_flatten(self, symbolize_keys: symbolize_keys, delimiter: delimiter, prefix: prefix)
+  end
+
+  def key_unflatten(symbolize_keys: false, delimiter: '.')
+    ::KeyFlatten.key_unflatten(self, symbolize_keys: symbolize_keys, delimiter: delimiter)
   end
 end
