@@ -48,7 +48,7 @@ require 'key_flatten/core_ext'
 ### Symbolize keys
 
 ```rb
-{"foo" => {"bar" => "baz"}}.key_flatten(symbolize: "_")
+{"foo" => {"bar" => "baz"}}.key_flatten(symbolize_keys: "_")
 # => {:"foo.bar" => "baz"}
 ```
 
