@@ -1,6 +1,6 @@
 # key_flatten
 
-Flatten keys of `Hash`.
+Flatten/unflatten keys of `Hash`.
 
 ## Installation
 
@@ -27,6 +27,9 @@ require 'key_flatten'
 
 KeyFlatten.key_flatten({"foo" => {"bar" => "baz"}})
 # => {"foo.bar" => "baz"}
+
+KeyFlatten.key_unflatten({"foo.bar" => "baz"})
+# => {"foo" => {"bar" => "baz"}}
 ```
 
 ### Monkey patching
@@ -36,6 +39,9 @@ require 'key_flatten/core_ext'
 
 {"foo" => {"bar" => "baz"}}.key_flatten
 # => {"foo.bar" => "baz"}
+
+{"foo.bar" => "baz"}.key_unflatten
+# => {"foo" => {"bar" => "baz"}}
 ```
 
 ### Specify delimiter
@@ -43,13 +49,19 @@ require 'key_flatten/core_ext'
 ```rb
 {"foo" => {"bar" => "baz"}}.key_flatten(delimiter: "_")
 # => {"foo_bar" => "baz"}
+
+{"foo_bar" => "baz"}.key_unflatten(delimiter: "_")
+# => {"foo" => {"bar" => "baz"}}
 ```
 
 ### Symbolize keys
 
 ```rb
-{"foo" => {"bar" => "baz"}}.key_flatten(symbolize_keys: "_")
+{"foo" => {"bar" => "baz"}}.key_flatten(symbolize_keys: true)
 # => {:"foo.bar" => "baz"}
+
+{"foo.bar" => "baz"}.key_unflatten(symbolize_keys: true)
+# => {foo: {bar: "baz"}}
 ```
 
 ## Development
