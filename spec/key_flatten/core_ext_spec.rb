@@ -11,8 +11,8 @@ RSpec.describe KeyFlatten do
 
     context 'when symbolize_keys: true' do
       it 'flattens keys of Hash and the key is Symbol' do
-        expect({foo: 'bar'}.key_flatten(symbolize_keys: true)).to eq({foo: 'bar'})
-        expect({foo: {bar: 'baz'}}.key_flatten(symbolize_keys: true)).to eq({:'foo.bar' => 'baz'})
+        expect({'foo' => 'bar'}.key_flatten(symbolize_keys: true)).to eq({foo: 'bar'})
+        expect({'foo' => {'bar' => 'baz'}}.key_flatten(symbolize_keys: true)).to eq({:'foo.bar' => 'baz'})
       end
     end
 
